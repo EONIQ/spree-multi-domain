@@ -95,6 +95,21 @@
           <%= f.text_field :default_currency, class: 'form-control' %>
         <% end %>
       </div>
+      
+      <div data-hook="checkout_with_address" class="form-group">
+        <strong><%= Spree.t(:checkout_with_address) %></strong>
+
+        <div class="radio">
+          <%= f.label :checkout_with_address, Spree.t(:checkout_with_address) do %>
+            <%= f.radio_button :checkout_with_address, "true" %>
+            <%= Spree.t(:say_yes) %>
+          <% end %>
+          <%= f.label :checkout_with_address, Spree.t(:checkout_with_address) do %>
+            <%= f.radio_button :checkout_with_address, "false" %>
+            <%= Spree.t(:say_no) %>
+          <% end %>
+        </div>
+      </div>
     </div>
 
   </div>
