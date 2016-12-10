@@ -12,6 +12,9 @@ module Spree
 
     has_and_belongs_to_many :promotion_rules, class_name: 'Spree::Promotion::Rules::Store', join_table: 'spree_promotion_rules_stores', association_foreign_key: 'promotion_rule_id'
 
+    belongs_to :country
+    belongs_to :state
+
     has_attached_file :logo,
       styles: { mini: '48x48>', small: '100x100>', medium: '250x250>' },
       default_style: :medium,

@@ -48,6 +48,51 @@
           <%= error_message_on :store, :url %>
         <% end %>
       </div>
+
+      <div data-hook="checkout_with_shipping_address" class="form-group">
+        <strong><%= Spree.t(:checkout_with_shipping_address) %></strong>
+
+        <div class="radio">
+          <%= f.label :checkout_with_shipping_address, Spree.t(:checkout_with_shipping_address) do %>
+            <%= f.radio_button :checkout_with_shipping_address, "true" %>
+            <%= Spree.t(:say_yes) %>
+          <% end %>
+          <%= f.label :checkout_with_shipping_address, Spree.t(:checkout_with_shipping_address) do %>
+            <%= f.radio_button :checkout_with_shipping_address, "false" %>
+            <%= Spree.t(:say_no) %>
+          <% end %>
+        </div>
+      </div>
+
+      <div data-hook="require_address" class="form-group">
+        <strong><%= Spree.t(:require_address) %></strong>
+
+        <div class="radio">
+          <%= f.label :require_address, Spree.t(:require_address) do %>
+            <%= f.radio_button :require_address, "true" %>
+            <%= Spree.t(:say_yes) %>
+          <% end %>
+          <%= f.label :require_address, Spree.t(:require_address) do %>
+            <%= f.radio_button :require_address, "false" %>
+            <%= Spree.t(:say_no) %>
+          <% end %>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <%= f.label :country_id, Spree.t(:country) %>
+        <span id="country">
+          <%= f.collection_select :country_id, available_countries, :id, :name, {}, { class: 'select2' } %>
+        </span>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :state_id, Spree.t(:state) %>
+        <span id="state">
+          <% state_empty = @store.country.nil? || @store.country.states.empty? %>
+          <%= f.collection_select :state_id, @store.country.nil? ? [] : @store.country.states.sort, :id, :name, { include_blank: true }, { class: 'select2', style: "display: #{state_empty ? 'none' : 'block' };", disabled: state_empty } %>
+        </span>
+      </div>
     </div>
 
     <div data-hook="admin_store_form_fields_right" class="col-md-6">
@@ -94,23 +139,15 @@
           <%= f.label :default_currency, Spree.t(:default_currency) %>
           <%= f.text_field :default_currency, class: 'form-control' %>
         <% end %>
-      </div>
-      
-      <div data-hook="checkout_with_address" class="form-group">
-        <strong><%= Spree.t(:checkout_with_address) %></strong>
-
-        <div class="radio">
-          <%= f.label :checkout_with_address, Spree.t(:checkout_with_address) do %>
-            <%= f.radio_button :checkout_with_address, "true" %>
-            <%= Spree.t(:say_yes) %>
-          <% end %>
-          <%= f.label :checkout_with_address, Spree.t(:checkout_with_address) do %>
-            <%= f.radio_button :checkout_with_address, "false" %>
-            <%= Spree.t(:say_no) %>
-          <% end %>
-        </div>
-      </div>
+      </div>      
     </div>
-
   </div>
 </div>
+
+<% content_for :head do %>
+  <%= javascript_tag do %>
+    $(document).ready(function(){
+      $('span#country .select2').on('change', function() { update_state(''); });
+    });
+  <% end %>
+<% end %>
