@@ -22,5 +22,9 @@ module SpreeMultiDomain
     def add_current_store_id_to_params
       params[:current_store_id] = current_store.try(:id)
     end
+
+    def current_store
+      @current_store ||= Spree::Store.current(request.env['SERVER_NAME'])
+    end
   end
 end
