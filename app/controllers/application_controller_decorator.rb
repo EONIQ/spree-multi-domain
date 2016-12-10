@@ -1,4 +1,4 @@
-Spree::BaseController.class_eval do 
+ApplicationController.class_eval do 
   before_filter :set_current_store
 
   def set_current_store
