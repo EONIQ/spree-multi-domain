@@ -134,6 +134,20 @@
         <% end %>
       </div>
 
+      <div data-hook="stock_locations">
+        <%= f.field_container :stock_locations, class: ['form-group'] do %>
+          <%= f.label :stock_locations, Spree.t(:stock_locations) %><br />
+          <% @stock_locations.each do |stock_location| %>
+            <label class="sub">
+              <%= check_box_tag 'store[stock_location_ids][]', stock_location.id, @store.stock_locations.include?(stock_location) %>
+            </label> &nbsp;
+            <%= stock_location.name %>
+            <br>
+          <% end %>
+          <%= hidden_field_tag 'store[stock_location_ids][]', '' %>
+        <% end %>
+      </div>
+
       <div data-hook="default_currency">
         <%= f.field_container :default_currency, class: ['form-group'] do %>
           <%= f.label :default_currency, Spree.t(:default_currency) %>

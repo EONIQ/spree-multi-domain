@@ -7,7 +7,6 @@ Spree::Order.class_eval do
   end
 
   before_validation :assign_store_addresses
-  after_initialize :assign_store_addresses
   set_callback :updating_from_params, :after, :assign_store_addresses
 
   def assign_store_addresses
@@ -16,12 +15,12 @@ Spree::Order.class_eval do
   end
 
   def assign_default_address_by_store(address)
-    if store 
+    if store && !store.require_address?
       address_variable = self.send(address)
       address_variable ||= Spree::Address.new
-      address_variable.update_attributes({require_address: store.require_address?,
+      address_variable.attributes = {require_address: store.require_address?,
           require_zipcode: store.require_address?,
-          require_phone: store.require_address?})
+          require_phone: store.require_address?}
 
       address_variable.country = store.country if address_variable.country.nil?
       address_variable.state = store.state if address_variable.state.nil?
