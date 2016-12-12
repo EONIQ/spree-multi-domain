@@ -7,6 +7,7 @@ Spree::Order.class_eval do
   end
 
   before_validation :assign_store_addresses
+  after_initialize :assign_store_addresses
   set_callback :updating_from_params, :after, :assign_store_addresses
 
   def assign_store_addresses
