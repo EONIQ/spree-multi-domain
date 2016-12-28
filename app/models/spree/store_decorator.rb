@@ -30,7 +30,7 @@ module Spree
     end
 
     def self.current_store
-      Thread.current[:current_store]
+      Thread.current[:current_store] || Spree::Store.first
     end
 
     def self.current_store=(store)
