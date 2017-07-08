@@ -1,5 +1,4 @@
 class Spree::Admin::StoresController < Spree::Admin::ResourceController
-
   before_filter :load_payment_methods
   before_filter :load_shipping_methods
   before_filter :load_stock_locations

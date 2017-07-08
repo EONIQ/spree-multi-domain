@@ -1,4 +1,4 @@
-class AddStoreToTracker < ActiveRecord::Migration
+class AddStoreToTracker < SpreeExtension::Migration[4.2]
   def self.up
     if table_exists?('trackers')
       change_table :trackers do |t|

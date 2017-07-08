@@ -27,20 +27,38 @@ a code of "alpha" you should store its default layout in app/views/spree/layouts
 
 5. Google analytics trackers can be associated with a store.
 
-Install Instructions
---------------------
+## Installation
 
-Add to your Gemfile:
+1. Add this extension to your Gemfile with this line:
 
-```ruby
-gem 'spree_multi_domain', git: 'git://github.com/spree/spree-multi-domain.git'
-```
+  #### Spree >= 3.1
 
-Then run `bundle`, and then run:
+  ```ruby
+  gem 'spree_multi_domain', github: 'spree-contrib/spree-multi-domain'
+  ```
 
-```
-bundle exec rails g spree_multi_domain:install
-```
+  #### Spree 3.0 and Spree 2.x
+
+  ```ruby
+  gem 'spree_multi_domain', github: 'spree-contrib/spree-multi-domain', branch: 'X-X-stable'
+  ```
+
+  The `branch` option is important: it must match the version of Spree you're using.
+  For example, use `3-0-stable` if you're using Spree `3-0-stable` or any `3.0.x` version.
+
+2. Install the gem using Bundler:
+  ```ruby
+  bundle install
+  ```
+
+3. Copy & run migrations
+  ```ruby
+  bundle exec rails g spree_multi_domain:install
+  ```
+
+4. Restart your server
+
+  If your server was running, restart it so that it can find the assets properly.
 
 You should see 'Stores & Domains' in Configuration tab of Spree Admin.
 
