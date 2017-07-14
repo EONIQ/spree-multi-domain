@@ -1,0 +1,17 @@
+<div class="row" style='display: inline-block; width: 50%'>
+  <%= form_tag update_store_admin_order_path(@order), class: 'form' do %>
+    <div class="col-md-6 col-xs-12">
+      <div class="form-group">
+        <div class="col-md-8 col-xs-12">
+          <label for="store_id"><%= Spree.t(:store) %></label>
+          <%= select_tag(:store_id, options_for_select(Spree::Store.all.map { |store| [store.name, store.id] }, @order.store_id), class: 'form-control') %>
+        </div>
+        <div class="col-md-4 col-xs-12">
+          <div class="form-actions" data-hook="buttons" style='line-height: 80px'>
+            <%= button Spree.t('actions.update'), 'save' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
