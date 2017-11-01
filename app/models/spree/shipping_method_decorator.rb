@@ -11,6 +11,6 @@ Spree::ShippingMethod.class_eval do
   end
 
   def store_match?(order)
-    order.store.shipping_methods.empty? || stores.include?(order.store)
+    order.store.nil? || order.store.shipping_methods.empty? || stores.include?(order.store)
   end
 end
