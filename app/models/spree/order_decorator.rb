@@ -1,9 +1,9 @@
 Spree::Order.class_eval do
   belongs_to :store
-  scope :by_store, -> (store) { where(store_id: store) }
+  scope :by_store, -> (store_id) { where(store_id: store_id) }
 
   def available_payment_methods
-    @available_payment_methods ||= Spree::PaymentMethod.available(:front_end, store)
+    @available_payment_methods ||= Spree::PaymentMethod.by_store(store_id).available_on_front_end
   end
 
   before_validation :assign_store_addresses
