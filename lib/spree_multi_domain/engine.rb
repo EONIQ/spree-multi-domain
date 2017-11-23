@@ -49,7 +49,6 @@ module SpreeMultiDomain
       ::Spree::Core::ControllerHelpers::Order.prepend(
         Module.new do
           def current_order(options = {})
-            puts 'debug - spree-multi-domain'
             options[:create_order_if_necessary] ||= false
             super(options)
 
