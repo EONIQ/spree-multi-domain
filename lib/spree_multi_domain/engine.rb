@@ -11,6 +11,10 @@ module SpreeMultiDomain
         end
       end
 
+      Dir.glob(File.join(File.dirname(__FILE__), '../spree/search/multi_domain.rb')) do |c|
+        Rails.application.config.cache_classes ? require(c) : load(c)
+      end
+
       Spree::Config.searcher_class = Spree::Search::MultiDomain
       ApplicationController.send :include, SpreeMultiDomain::MultiDomainHelpers
     end
@@ -45,6 +49,7 @@ module SpreeMultiDomain
       ::Spree::Core::ControllerHelpers::Order.prepend(
         Module.new do
           def current_order(options = {})
+            puts 'debug - spree-multi-domain'
             options[:create_order_if_necessary] ||= false
             super(options)
 
