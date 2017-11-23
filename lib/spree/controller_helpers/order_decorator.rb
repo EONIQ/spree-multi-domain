@@ -13,7 +13,7 @@ Spree::Core::ControllerHelpers::Order.class_eval do
     options[:lock] ||= false
 
     # Find any incomplete orders for the guest_token
-    incomplete_orders = Spree::Order.incomplete.by_store(Spree::Store.current_store).includes(line_items: [variant: [:images, :option_values, :product]])
+    incomplete_orders = Spree::Order.incomplete.by_store(Spree::Store.current_store.id).includes(line_items: [variant: [:images, :option_values, :product]])
     guest_token_order_params = current_order_params.except(:user_id)
     order = if with_adjustments
               incomplete_orders.includes(:adjustments).lock(options[:lock]).find_by(guest_token_order_params)
