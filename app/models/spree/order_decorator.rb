@@ -10,8 +10,6 @@ Spree::Order.class_eval do
   after_initialize :assign_store_addresses
   set_callback :updating_from_params, :after, :assign_store_addresses
 
-  # before_save :restart_checkout_flow, if: :store_id_changed?
-
   def assign_store_addresses
     assign_default_address_by_store(:bill_address) if store
     assign_default_address_by_store(:ship_address) if store && checkout_steps.include?("delivery")

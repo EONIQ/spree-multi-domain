@@ -4,6 +4,6 @@ Spree::Variant.class_eval do
   end
 
   def in_stock_cache_key
-    "variant-#{Spree::Store.current_store.id}-#{id}-in_stock"
+    "variant-#{Spree::Store.current_store.try(:id)}-#{id}-in_stock"
   end
 end
