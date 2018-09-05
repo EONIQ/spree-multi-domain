@@ -11,8 +11,8 @@ Spree::Order.class_eval do
   set_callback :updating_from_params, :after, :assign_store_addresses
 
   def assign_store_addresses
-    assign_default_address_by_store(:bill_address) if store
-    assign_default_address_by_store(:ship_address) if store && checkout_steps.include?("delivery")
+    assign_default_address_by_store(:bill_address) if store && !bill_address
+    assign_default_address_by_store(:ship_address) if store && !ship_address && checkout_steps.include?("delivery")
   end
 
   def assign_default_address_by_store(address)

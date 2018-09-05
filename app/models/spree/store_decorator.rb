@@ -28,13 +28,5 @@ module Spree
     if respond_to? :logo_file_name
       validates_attachment_file_name :logo, matches: [/png\Z/i, /jpe?g\Z/i]
     end
-
-    def self.current_store
-      Thread.current[:current_store] || Spree::Store.first
-    end
-
-    def self.current_store=(store)
-      Thread.current[:current_store] = store
-    end
   end
 end
